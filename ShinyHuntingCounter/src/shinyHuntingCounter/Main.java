@@ -27,7 +27,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("InputGUI.fxml"));
+			BorderPane root = FXMLLoader.load(getClass().getResource("InputGUI.fxml"));
 			Scene scene = new Scene(root,400,600);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
