@@ -2,12 +2,15 @@ package shinyHuntingCounter;
 
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,13 +26,31 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /////////////////////////////////////////////////////////////////////////////////////////
+//
+// Created by: Matty Slyzys on December 5th, 2020
+//
+// This program is essentially a counter. When a user first starts this program,
+// a GUI will prompt them to input some data about the Pokémon they are trying to 
+// find, the odds of finding it and any shiny hunting methods they are using. 
+// They can also imput a file about another shiny hunt they have saved.
+//
+// After this, a new GUI will open showing a counter and some information about the 
+// hunt. At any point, the user can click a button to inciriment the counter (or 
+// decrease if the user misclicked). Additionally, the user can also save their 
+// progress to be upened up upon rerunning the program.
+//
+// This program also assumes each method is at its maximum possible odds
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////////////////////
 //																					   //
 //  This class governs the Input form for the Shiny Hunting Counter					   //
 //																					   //
 /////////////////////////////////////////////////////////////////////////////////////////
-public class InputGUIController {
+public class InputGUIController extends ShinyCounterController implements Initializable {
 	
-	ShinyCounterController scc = new ShinyCounterController();
+	Stage secondaryStage = new Stage();
 	
 	// List items for the ComboBoxes
 	ObservableList<String> genList = FXCollections.observableArrayList(
@@ -57,6 +78,7 @@ public class InputGUIController {
 			"K.O. Method",
 			"Dynamax Adventures");
 	
+	
 	// Variables for each element
     @FXML private TextField nameInput;
     @FXML private ChoiceBox genComboBox;
@@ -65,49 +87,36 @@ public class InputGUIController {
     @FXML  private CheckBox shinyCharmCheckbox;
     @FXML  private Button loadButton;
     @FXML  private Button newButton;
-    
-    // This method sets up the comboBoxes for the generation and the method fields
-    @FXML private void initialize() {
-    	genComboBox.setItems(genList);
-    	methodComboBox.setItems(methodList);
-    }
 
-    @FXML void newPressed(ActionEvent event) {
-    	// Save the data the the user has inputted and replace the scene
-    	try {
-    		
-    		scc.setName(nameInput.getText());
-    		scc.setGeneration((String) genComboBox.getValue());
-    		scc.setMethod((String) methodComboBox.getValue());
-    		scc.setDate(dateStarted.getValue().toString());
-    		scc.setHasShinyCharm(shinyCharmCheckbox.isSelected());
-    		
-    		switchScene(event);
-
-    	} catch (Exception e) {
-    		// Prevents the user from continuing if they have not added all the entries required
-    		Alert alert = new Alert(AlertType.ERROR, "Please make sure all fields are entered");
-    		alert.showAndWait();
-    	}
-    	
-    	
-	}
-    
-    // This method switches the scene to the one in ShinyCounter.fxml
-    // After this method calls, everything else will be handled by the ShinyCounterController class
-    private void switchScene(ActionEvent event) {
-    	try {
-			Parent counterParent = FXMLLoader.load(getClass().getResource("ShinyCounter.fxml"));
-			Scene counterScene = new Scene(counterParent);
-			Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-			window.setScene(counterScene);
-			window.setTitle("Shiny Counter");
-			window.show();
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("ShinyCounter.fxml"));
+			Scene scene = new Scene(root, 400, 600);
+			secondaryStage.setScene(scene);
+			secondaryStage.getIcons().add(new Image("/ShinyHuntingIcon.png"));
+			secondaryStage.setTitle("Setup");
+			secondaryStage.setResizable(false);
 			
-		} catch (IOException e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		genComboBox.setItems(genList);
+    	methodComboBox.setItems(methodList);
+		
+	}
+	
+    @FXML
+    void newPressed(ActionEvent event) {
+    	nameLabel.setText(nameInput.getText());
+    	genLabel.setText(genComboBox.getValue().toString());
+    	methodLabel.setText(methodComboBox.getValue().toString());
+    	dateLabel.setText(dateStarted.getValue().toString());
+    	
+    	// close InputGUI
+    	Main.primaryStage.close();
+    	secondaryStage.show();
     	
     }
 
