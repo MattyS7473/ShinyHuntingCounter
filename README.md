@@ -22,10 +22,10 @@ also save their progress so they can continue their hunt upon rerunning the prog
 Sometime around April 2020, my friend showed me a spreadsheet of every Shiny Pokémon he managed to find incluing 
 the methods and the amount of encounters it took, whenever it was applicable. I decided to do that aswell so I 
 documented every Shiny I encountered in as far back as I remember. However, I never really kept track of how much
-encounters it took. This was made apparent when almost all of the entries for the "encounters" section that were 
+encounters it took. This was made apparent when almost all of the entries for the "Encounters" section that were 
 applicable were "Can't Remember". 
 
 I made this program because I wanted to encourage myself to keep track of the encounters. Having a program that I 
 made myself should help me want to use it and, in this case, keep track of encounters. Additionally, this program 
-keeps track of extra data such as the encounter method, and the pokemon's name that would help when remembering
+keeps track of extra data such as the encounter method, and the Pokémon's name that would help when remembering
 what to put on the spreadsheet.
