@@ -2,6 +2,7 @@ package shinyHuntingCounter;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
@@ -21,19 +22,25 @@ import javafx.fxml.FXMLLoader;
 //  decrease if the user misclicked). Additionally, the user can also save their 
 //  progress to be upened up upon rerunning the program.
 //
+//  This program also assumes each method is at its maximum possible odds
+//
 /////////////////////////////////////////////////////////////////////////////////////////
 
 public class Main extends Application {
-	@Override
-	public void start(Stage primaryStage) {
+	
+	public static Stage primaryStage;
+	
+	public void start(Stage aStage) {
 		try {
-			BorderPane root = FXMLLoader.load(getClass().getResource("InputGUI.fxml"));
-			Scene scene = new Scene(root,400,600);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			primaryStage = aStage;
+			Parent root = FXMLLoader.load(getClass().getResource("InputGUI.fxml"));
+			Scene scene = new Scene(root, 400, 600);
 			primaryStage.setScene(scene);
-			primaryStage.show();
 			primaryStage.getIcons().add(new Image("/ShinyHuntingIcon.png"));
 			primaryStage.setTitle("Setup");
+			primaryStage.setResizable(false);
+			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -42,4 +49,5 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
 }
