@@ -114,10 +114,152 @@ public class InputGUIController extends ShinyCounterController implements Initia
     	methodLabel.setText(methodComboBox.getValue().toString());
     	dateLabel.setText(dateStarted.getValue().toString());
     	
-    	// close InputGUI
+    	oddsLabel.setText(findOdds(genComboBox.getValue().toString(), methodComboBox.getValue().toString(), shinyCharmCheckbox.isSelected()));
+    	
+    	System.out.println(shinyCharmCheckbox.isSelected());
+    	// close InputGUI and display the counter
     	Main.primaryStage.close();
     	secondaryStage.show();
     	
+    }
+    
+    public String findOdds(String generation, String method, Boolean hasShinyCharm) {
+		int odds = 8192;
+		int rerolls = 1;
+
+		
+		switch (generation) {
+		case "Generation 1":
+			break;
+		case "Generation 2":
+			break;
+		case "Generation 3":
+			break;
+		case "Generation 4":
+			
+			if (method.equals("Masuda Method")) {
+				rerolls = 4;
+			} else if (method.equals("PokeRadar")) {
+				rerolls = 1;
+				odds = 200;
+			}
+			break;
+			
+		case "Generation 5":
+			
+			if (method.equals("Masuda Method")) {
+				rerolls = 5;
+			}
+			
+			if (hasShinyCharm) {
+				rerolls += 3;
+			}
+			
+			break;
+			
+		case "Generation 6":
+			
+			odds = (int) odds / 2;
+			
+			if (method.equals("Masuda Method")) {
+				rerolls = 5;
+				if (hasShinyCharm) {
+					rerolls += 3;
+				}
+			} else if (method.equals("PokeRadar")) {
+				rerolls = 1;
+				odds = 200;
+			} else if (method.equals("DexNav")) {
+				rerolls = 8;
+			} else if (method.equals("Horde Encounter")) {
+				rerolls = 5;
+				if (hasShinyCharm) {
+					rerolls += 3;
+				}
+			} else if (method.equals("Friend Safari")) {
+				rerolls = 8;
+			} else if (method.equals("Chain Fishing")) {
+				rerolls = 41;
+				if (hasShinyCharm) {
+					rerolls += 3;
+				}
+			}
+		
+			break;
+			
+		case "Generation 7":
+			
+			odds = (int) odds / 2 ;
+			
+			if (method.equals("Masuda Method")) {
+				rerolls = 5;
+				if (hasShinyCharm) {
+					rerolls += 3;
+				}
+			} else if (method.equals("S.O.S Chaining")) {
+				rerolls = 13;
+				if (hasShinyCharm) {
+					rerolls += 3;
+				}
+			} else if (method.equals("Ultra Wormhole")) {
+				rerolls = 1;
+				odds = 4;
+			}
+			
+			break;
+			
+		case "Generation 8":
+
+			odds = (int) odds / 2;
+			
+			if (method.equals("Masuda Method")) {
+				rerolls = 5;
+				if (hasShinyCharm) {
+					rerolls += 3;
+				}
+			} else if (method.equals("Catch Combo")) {
+				rerolls = 12;
+				if (hasShinyCharm) {
+					rerolls += 3;
+				}
+			} else if (method.equals("K.O. Method")) {
+				rerolls = 5;
+				if (hasShinyCharm) {
+					rerolls += 3;
+				}
+			} else if (method.equals("Dynamax Adventures")) {
+				rerolls = 1;
+				odds = 300;
+				if (hasShinyCharm) {
+					odds = 100;
+				}
+			}
+			
+			break;
+		}
+		System.out.println(rerolls);
+		System.out.println(odds);
+		return Integer.toString((int) odds / rerolls);
+		
+	}
+    
+    @FXML
+    void load(ActionEvent event) {
+    	String[] data;
+    	data = SaveAndLoad.readFromFile();
+    	
+    	nameLabel.setText(data[0]);
+    	genLabel.setText(data[1]);
+    	methodLabel.setText(data[2]);
+    	dateLabel.setText(data[3]);
+    	
+    	count.setText(data[4]);
+    	oddsLabel.setText(data[5]);
+    	
+    	System.out.println(shinyCharmCheckbox.isSelected());
+    	// close InputGUI and display the counter
+    	Main.primaryStage.close();
+    	secondaryStage.show();
     }
 
 }

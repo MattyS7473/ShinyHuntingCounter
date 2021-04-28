@@ -91,7 +91,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="loadButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Load" textAlignment="CENTER">
+            <Button fx:id="loadButton" mnemonicParsing="false" onAction="#load" prefHeight="40.0" prefWidth="100.0" text="Load" textAlignment="CENTER">
                <font>
                   <Font size="18.0" />
                </font>
