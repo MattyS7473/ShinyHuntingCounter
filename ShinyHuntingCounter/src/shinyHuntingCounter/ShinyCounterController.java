@@ -3,6 +3,7 @@ package shinyHuntingCounter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,6 +25,8 @@ public class ShinyCounterController implements Initializable {
     protected static Label methodLabel;
     protected static Label dateLabel;
     protected static Label oddsLabel;
+    protected static TextField count;
+    
     
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -32,6 +35,30 @@ public class ShinyCounterController implements Initializable {
 		genLabel = generationNum;
 		methodLabel = huntingMethod;
 		dateLabel = startDate;
+		oddsLabel = shinyOdds;
+		count = shinyCount;
+		
 	}
+	
+    @FXML
+    void addOne(ActionEvent event) {
+    	int count = Integer.parseInt(shinyCount.getText());
+    	count++;
+    	shinyCount.setText(String.valueOf(count));
+    }
+
+    @FXML
+    void subtractOne(ActionEvent event) {
+    	int count = Integer.parseInt(shinyCount.getText());
+    	count--;
+    	shinyCount.setText(String.valueOf(count));
+    }
+
+    @FXML
+    void save(ActionEvent event) {
+    	SaveAndLoad.writeToFile(pkmnName.getText(), generationNum.getText(), huntingMethod.getText(), 
+    			startDate.getText(), shinyCount.getText(), shinyOdds.getText());
+    	
+    }
 
 }
