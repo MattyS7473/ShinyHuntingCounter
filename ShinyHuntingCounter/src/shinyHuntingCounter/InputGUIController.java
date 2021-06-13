@@ -91,7 +91,7 @@ public class InputGUIController extends ShinyCounterController implements Initia
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("ShinyCounter.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/shinyHuntingCounter/ShinyCounter.fxml"));
 			Scene scene = new Scene(root, 400, 600);
 			secondaryStage.setScene(scene);
 			secondaryStage.getIcons().add(new Image("/ShinyHuntingIcon.png"));
